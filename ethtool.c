@@ -4119,6 +4119,9 @@ static int do_grxfh(struct cmd_context *ctx)
 	printf("    symmetric-xor: %s\n",
 	       (rss->input_xfrm & RXH_XFRM_SYM_XOR) ? "on" : "off");
 	rss->input_xfrm &= ~RXH_XFRM_SYM_XOR;
+	printf("    symmetric-or-xor: %s\n",
+	       (rss->input_xfrm & RXH_XFRM_SYM_OR_XOR) ? "on" : "off");
+	rss->input_xfrm &= ~RXH_XFRM_SYM_OR_XOR;
 
 	if (rss->input_xfrm)
 		printf("    Unknown bits in RSS input transformation: 0x%x\n",
@@ -4291,6 +4294,8 @@ static int do_srxfh(struct cmd_context *ctx)
 				exit_bad_args();
 			if (!strcmp(ctx->argp[arg_num], "symmetric-xor"))
 				req_input_xfrm = RXH_XFRM_SYM_XOR;
+			else if (!strcmp(ctx->argp[arg_num], "symmetric-or-xor"))
+				req_input_xfrm = RXH_XFRM_SYM_OR_XOR;
 			else if (!strcmp(ctx->argp[arg_num], "none"))
 				req_input_xfrm = 0;
 			else
@@ -6005,7 +6010,7 @@ static const struct option args[] = {
 			  "		[ equal N | weight W0 W1 ... | default ]\n"
 			  "		[ hkey %x:%x:%x:%x:%x:.... ]\n"
 			  "		[ hfunc FUNC ]\n"
-			  "		[ xfrm symmetric-xor|none ]\n"
+			  "		[ xfrm symmetric-xor | symmetric-or-xor | none ]\n"
 			  "		[ delete ]\n"
 	},
 	{
