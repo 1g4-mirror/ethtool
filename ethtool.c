@@ -1206,6 +1206,7 @@ static const struct {
 	{ "fsl_enetc", fsl_enetc_dump_regs },
 	{ "fsl_enetc_vf", fsl_enetc_dump_regs },
 	{ "hns3", hns3_dump_regs },
+	{ "hibmcge", hibmcge_dump_regs },
 };
 #endif
 
