@@ -342,6 +342,20 @@ ethtool \- query or control network driver and hardware settings
 .HP
 .B ethtool \-T|\-\-show\-time\-stamping
 .I devname
+.RB [ index
+.IR N
+.BI qualifier
+.IR precise|approx ]
+.HP
+.B ethtool \-\-get\-hwtimestamp\-cfg
+.I devname
+.HP
+.B ethtool \-\-set\-hwtimestamp\-cfg
+.I devname
+.RB [ index
+.IR N
+.BI qualifier
+.IR precise|approx ]
 .HP
 .B ethtool \-x|\-\-show\-rxfh\-indir|\-\-show\-rxfh
 .I devname
@@ -1233,7 +1247,32 @@ Sets the dump flag for the device.
 .TP
 .B \-T \-\-show\-time\-stamping
 Show the device's time stamping capabilities and associated PTP
-hardware clock.
+hardware clock. Show the capabilities of the currently selected time
+stamping if no \fBindex\fR and \fBqualifier\fR is provided.
+.RS 4
+.TP
+.BI index \ N
+Index of the ptp hardware clock
+.TP
+.BI qualifier \ precise | approx
+Qualifier of the ptp hardware clock. Mainly "precise" the default one is
+for IEEE 1588 quality and "approx" is for NICs DMA point.
+.RE
+.TP
+.B \-\-get\-hwtimestamp\-cfg
+Show the selected time stamping PTP hardware clock configuration.
+.TP
+.B \-\-set\-hwtimestamp\-cfg
+Select the device's time stamping PTP hardware clock.
+.RS 4
+.TP
+.BI index \ N
+Index of the ptp hardware clock
+.TP
+.BI qualifier \ precise | approx
+Qualifier of the ptp hardware clock. Mainly "precise" the default one is
+for IEEE 1588 quality and "approx" is for NICs DMA point.
+.RE
 .TP
 .B \-x \-\-show\-rxfh\-indir \-\-show\-rxfh
 Retrieves the receive flow hash indirection table and/or RSS hash key.
