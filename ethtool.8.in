@@ -210,6 +210,7 @@ ethtool \- query or control network driver and hardware settings
 .BN tx
 .BN rx\-buf\-len
 .B3 tcp\-data\-split auto on off
+.BN hds\-thresh
 .BN cqe\-size
 .BN tx\-push
 .BN rx\-push
@@ -691,6 +692,9 @@ Changes the size of a buffer in the Rx ring.
 .TP
 .BI tcp\-data\-split \ auto|on|off
 Specifies the state of TCP data split.
+.TP
+.BI hds\-thresh \ N
+Specifies the threshold value of tcp data split
 .TP
 .BI cqe\-size \ N
 Changes the size of completion queue event.
