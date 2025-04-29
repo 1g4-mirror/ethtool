@@ -372,7 +372,7 @@ ethtool \- query or control network driver and hardware settings
 .RB ...\ | \ default \ ]
 .RB [ hfunc
 .IR FUNC ]
-.B2 xfrm symmetric-xor none
+.B3 xfrm symmetric-xor symmetric-or-xor none
 .RB [ context
 .I CTX
 .RB |\  new ]
@@ -1292,15 +1292,15 @@ List of RSS hash functions which kernel supports is shown as a part of the --sho
 .TP
 .BI xfrm
 Sets the RSS input transformation. Currently, only the
-.B symmetric-xor
-transformation is supported where the NIC XORs the L3 and/or L4 source and
-destination fields (as selected by
+.B symmetric-xor and symmetric-or-xor
+transformations are supported where the NIC XORs/ORs the L3 and/or L4 source
+and destination fields (as selected by
 .B --config-nfc rx-flow-hash
 ) before passing them to the hash algorithm. The RSS hash function will
 then yield the same hash for the other flow direction where the source and
-destination fields are swapped (i.e. Symmetric RSS). Note that XORing the
-input parameters reduces the entropy of the input set and the hash algorithm
-could potentially be exploited. Switch off (default) by
+destination fields are swapped (i.e. Symmetric RSS). Note that this operation
+reduces the entropy of the input set and the hash algorithm could potentially
+be exploited. Switch off (default) by
 .B xfrm none.
 .TP
 .BI start\  N
