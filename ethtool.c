@@ -6053,6 +6053,7 @@ static const struct option args[] = {
 	},
 	{
 		.opts	= "-l|--show-channels",
+		.json	= true,
 		.func	= do_gchannels,
 		.nlfunc	= nl_gchannels,
 		.help	= "Query Channels"
