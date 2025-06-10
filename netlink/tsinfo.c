@@ -52,6 +52,37 @@ int tsinfo_show_hwprov(const struct nlattr *nest)
 	return 0;
 }
 
+const char *tsinfo_source_names(u32 val)
+{
+	switch (val) {
+	case HWTSTAMP_SOURCE_NETDEV:
+		return "MAC";
+	case HWTSTAMP_SOURCE_PHYLIB:
+		return "PHY";
+	default:
+		return "Unknown";
+	}
+}
+
+int tsinfo_show_source(const struct nlattr **tb)
+{
+	u32 val;
+
+	val = mnl_attr_get_u32(tb[ETHTOOL_A_TSINFO_HWTSTAMP_SOURCE]);
+	print_string(PRINT_ANY, "hwtstamp-source:",
+		     "Hardware timestamp source: %s\n",
+		     tsinfo_source_names(val));
+
+	if (!tb[ETHTOOL_A_TSINFO_HWTSTAMP_PHYINDEX])
+		return 0;
+
+	val = mnl_attr_get_u32(tb[ETHTOOL_A_TSINFO_HWTSTAMP_PHYINDEX]);
+	print_uint(PRINT_ANY, "hwtstamp-source-phyindex:",
+		   "Hardware timestamp source PHY index: %d\n", val);
+
+	return 0;
+}
+
 static int tsinfo_show_stats(const struct nlattr *nest)
 {
 	const struct nlattr *tb[ETHTOOL_A_TS_STAT_MAX + 1] = {};
@@ -184,6 +215,9 @@ int tsinfo_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 		printf("PTP Hardware Clock: ");
 		printf("none\n");
 	}
+
+	if (tb[ETHTOOL_A_TSINFO_HWTSTAMP_SOURCE])
+		tsinfo_show_source(tb);
 
 	ret = tsinfo_dump_list(nlctx, tb[ETHTOOL_A_TSINFO_TX_TYPES],
 			       "Hardware Transmit Timestamp Modes", " none",
