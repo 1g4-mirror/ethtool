@@ -75,6 +75,10 @@ static struct {
 		.cmd	= ETHTOOL_MSG_MODULE_NTF,
 		.cb	= module_reply_cb,
 	},
+	{
+		.cmd	= ETHTOOL_MSG_PLCA_NTF,
+		.cb	= plca_get_cfg_reply_cb,
+	},
 };
 
 static void clear_filter(struct nl_context *nlctx)
@@ -186,6 +190,11 @@ static struct monitor_option monitor_opts[] = {
 		.pattern	= "--show-module|--set-module",
 		.cmd		= ETHTOOL_MSG_MODULE_NTF,
 	},
+	{
+		.pattern	= "--get-plca-cfg|--set-plca-cfg",
+		.cmd		= ETHTOOL_MSG_PLCA_NTF,
+	},
+
 };
 
 static bool pattern_match(const char *s, const char *pattern)
