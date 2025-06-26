@@ -1322,7 +1322,7 @@ and destination fields (as selected by
 then yield the same hash for the other flow direction where the source and
 destination fields are swapped (i.e. Symmetric RSS). Note that this operation
 reduces the entropy of the input set and the hash algorithm could potentially
-be exploited. Switch off (default) by
+be exploited. Switch off by
 .B xfrm none.
 .TP
 .BI start\  N
