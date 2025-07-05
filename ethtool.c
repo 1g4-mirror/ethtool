@@ -1262,6 +1262,7 @@ static const struct {
 	{ "hns3", hns3_dump_regs },
 	{ "fbnic", fbnic_dump_regs },
 	{ "hibmcge", hibmcge_dump_regs },
+	{ "am65-cpsw-nuss", am65_cpsw_dump_regs },
 };
 #endif
 

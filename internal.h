@@ -418,4 +418,8 @@ int lan743x_dump_regs(struct ethtool_drvinfo *info, struct ethtool_regs *regs);
 
 /* Meta Ethernet Controller */
 int fbnic_dump_regs(struct ethtool_drvinfo *info, struct ethtool_regs *regs);
+
+/* TI K3 CPSW Ethernet Switch */
+int am65_cpsw_dump_regs(struct ethtool_drvinfo *info, struct ethtool_regs *regs);
+
 #endif /* ETHTOOL_INTERNAL_H__ */
