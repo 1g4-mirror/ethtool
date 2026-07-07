@@ -286,6 +286,11 @@ int test_fclose(FILE *fh);
 int ioctl_init(struct cmd_context *ctx, bool no_dev);
 int send_ioctl(struct cmd_context *ctx, void *cmd);
 
+int parse_hkey(char **rss_hkey, u32 key_size, const char *rss_hkey_string);
+int fill_indir_table(u32 *indir_size, u32 *indir, int rxfhindir_default,
+		     int rxfhindir_start, int rxfhindir_equal,
+		     char **rxfhindir_weight, u32 num_weights);
+
 void dump_hex(FILE *f, const u8 *data, int len, int offset);
 
 /* National Semiconductor DP83815, DP83816 */

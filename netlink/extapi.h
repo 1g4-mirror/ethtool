@@ -50,6 +50,7 @@ int nl_smodule(struct cmd_context *ctx);
 int nl_monitor(struct cmd_context *ctx);
 int nl_getmodule(struct cmd_context *ctx);
 int nl_grss(struct cmd_context *ctx);
+int nl_srss(struct cmd_context *ctx);
 int nl_plca_get_cfg(struct cmd_context *ctx);
 int nl_plca_set_cfg(struct cmd_context *ctx);
 int nl_plca_get_status(struct cmd_context *ctx);
@@ -130,6 +131,7 @@ nl_get_eeprom_page(struct cmd_context *ctx __maybe_unused,
 #define nl_gmodule		NULL
 #define nl_smodule		NULL
 #define nl_grss			NULL
+#define nl_srss			NULL
 #define nl_plca_get_cfg		NULL
 #define nl_plca_set_cfg		NULL
 #define nl_plca_get_status	NULL

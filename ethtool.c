@@ -1207,8 +1207,7 @@ err:
 	return 2;
 }
 
-static int parse_hkey(char **rss_hkey, u32 key_size,
-		      const char *rss_hkey_string)
+int parse_hkey(char **rss_hkey, u32 key_size, const char *rss_hkey_string)
 {
 	if (!key_size) {
 		fprintf(stderr,
@@ -4207,9 +4206,9 @@ out:
 	return 0;
 }
 
-static int fill_indir_table(u32 *indir_size, u32 *indir, int rxfhindir_default,
-			    int rxfhindir_start, int rxfhindir_equal,
-			    char **rxfhindir_weight, u32 num_weights)
+int fill_indir_table(u32 *indir_size, u32 *indir, int rxfhindir_default,
+		     int rxfhindir_start, int rxfhindir_equal,
+		     char **rxfhindir_weight, u32 num_weights)
 {
 	u32 i;
 
@@ -6215,6 +6214,7 @@ static const struct option args[] = {
 	{
 		.opts	= "-X|--set-rxfh-indir|--rxfh",
 		.func	= do_srxfh,
+		.nlfunc	= nl_srss,
 		.help	= "Set Rx flow hash indirection table and/or RSS hash key",
 		.xhelp	= "		[ context %d|new ]\n"
 			  "		[ equal N | weight W0 W1 ... | default ]\n"
