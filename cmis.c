@@ -517,7 +517,7 @@ cmis_parse_dom_chan_lvl_monitors_bank(const struct cmis_memory_map *map,
 
 		sd->scd[chan].bias_cur = OFFSET_TO_U16_PTR(page_11h,
 							   tx_bias_offset);
-		sd->scd[chan].bias_cur >>= bias_mul;
+		sd->scd[chan].bias_cur <<= bias_mul;
 		sd->scd[chan].rx_power = OFFSET_TO_U16_PTR(page_11h,
 							   rx_power_offset);
 		sd->scd[chan].tx_power = OFFSET_TO_U16_PTR(page_11h,
@@ -544,16 +544,16 @@ static void cmis_parse_dom_chan_lvl_thresh(const struct cmis_memory_map *map,
 
 	sd->bias_cur[HALRM] = OFFSET_TO_U16_PTR(map->page_02h,
 						CMIS_TX_BIAS_HALRM_OFFSET);
-	sd->bias_cur[HALRM] >>= bias_mul;
+	sd->bias_cur[HALRM] <<= bias_mul;
 	sd->bias_cur[LALRM] = OFFSET_TO_U16_PTR(map->page_02h,
 						CMIS_TX_BIAS_LALRM_OFFSET);
-	sd->bias_cur[LALRM] >>= bias_mul;
+	sd->bias_cur[LALRM] <<= bias_mul;
 	sd->bias_cur[HWARN] = OFFSET_TO_U16_PTR(map->page_02h,
 						CMIS_TX_BIAS_HWARN_OFFSET);
-	sd->bias_cur[HWARN] >>= bias_mul;
+	sd->bias_cur[HWARN] <<= bias_mul;
 	sd->bias_cur[LWARN] = OFFSET_TO_U16_PTR(map->page_02h,
 						CMIS_TX_BIAS_LWARN_OFFSET);
-	sd->bias_cur[LWARN] >>= bias_mul;
+	sd->bias_cur[LWARN] <<= bias_mul;
 
 	sd->tx_power[HALRM] = OFFSET_TO_U16_PTR(map->page_02h,
 						CMIS_TX_PWR_HALRM_OFFSET);
