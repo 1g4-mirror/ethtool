@@ -255,10 +255,20 @@ static void cmis_show_sig_integrity(const struct cmis_memory_map *map)
 static void cmis_show_mit_compliance(const struct cmis_memory_map *map)
 {
 	__u8 value = map->page_00h[CMIS_MEDIA_INTF_TECH_OFFSET];
+	float wl, wl_tol;
 
 	module_show_mit_compliance(value);
 
-	if (value >= MODULE_TT_COPPER_UNEQUAL) {
+	switch (value) {
+	case MODULE_TT_COPPER_UNEQUAL:
+	case MODULE_TT_COPPER_PASS_EQUAL:
+	case MODULE_TT_COPPER_NF_EQUAL:
+	case MODULE_TT_COPPER_F_EQUAL:
+	case MODULE_TT_COPPER_N_EQUAL:
+	case MODULE_TT_COPPER_LINEAR_EQUAL:
+	case MODULE_TT_COPPER_NF_LINEAR:
+	case MODULE_TT_COPPER_F_LINEAR:
+	case MODULE_TT_COPPER_N_LINEAR:
 		module_print_any_uint("Attenuation at 5GHz",
 				      map->page_00h[CMIS_COPPER_ATT_5GHZ], "db");
 		module_print_any_uint("Attenuation at 7GHz",
@@ -269,15 +279,20 @@ static void cmis_show_mit_compliance(const struct cmis_memory_map *map)
 		module_print_any_uint("Attenuation at 25.8GHz",
 				      map->page_00h[CMIS_COPPER_ATT_25P8GHZ],
 				      "db");
-	} else if (map->page_01h) {
-		module_print_any_float("Laser wavelength",
-				       (((map->page_01h[CMIS_NOM_WAVELENGTH_MSB] << 8) |
-				        map->page_01h[CMIS_NOM_WAVELENGTH_LSB]) * 0.05),
+		break;
+	default:
+		if (!map->page_01h)
+			break;
+		wl = ((map->page_01h[CMIS_NOM_WAVELENGTH_MSB] << 8) |
+		      map->page_01h[CMIS_NOM_WAVELENGTH_LSB]) * 0.05;
+		wl_tol = ((map->page_01h[CMIS_WAVELENGTH_TOL_MSB] << 8) |
+			  map->page_01h[CMIS_WAVELENGTH_TOL_LSB]) * 0.005;
+		if (!wl)
+			break;
+		module_print_any_float("Laser wavelength", wl, "nm");
+		module_print_any_float("Laser wavelength tolerance", wl_tol,
 				       "nm");
-		module_print_any_float("Laser wavelength tolerance",
-				       (((map->page_01h[CMIS_WAVELENGTH_TOL_MSB] << 8) |
-				        map->page_01h[CMIS_WAVELENGTH_TOL_LSB]) * 0.005),
-				       "nm");
+		break;
 	}
 }
 
