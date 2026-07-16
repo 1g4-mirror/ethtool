@@ -924,10 +924,14 @@ static void cmis_show_cdb_mode(const struct cmis_memory_map *map)
 
 static void cmis_show_cdb_epl_pages(const struct cmis_memory_map *map)
 {
-	__u8 epl_pages = map->page_01h[CMIS_CDB_ADVER_OFFSET] &
-			 CMIS_CDB_ADVER_EPL_MASK;
+	static const __u8 epl_page_count[] = { 0, 1, 2, 3, 4, 8, 12, 16 };
+	__u8 epl = map->page_01h[CMIS_CDB_ADVER_OFFSET] &
+		CMIS_CDB_ADVER_EPL_MASK;
 
-	module_print_any_uint("CDB EPL pages", epl_pages, NULL);
+	if (epl >= ARRAY_SIZE(epl_page_count))
+		return;
+
+	module_print_any_uint("CDB EPL pages", epl_page_count[epl], NULL);
 }
 
 static void cmis_show_cdb_rw_len(const struct cmis_memory_map *map)
