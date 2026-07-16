@@ -766,7 +766,7 @@ static void cmis_show_dom_chan_lvl_flag(const struct cmis_memory_map *map,
 		char str[80];
 		bool value;
 
-		value = page_11h[module_aw_chan_flags[flag].offset] & chan;
+		value = page_11h[module_aw_chan_flags[flag].offset] & (1 << i);
 		if (is_json_context()) {
 			print_bool(PRINT_JSON, NULL, NULL, value);
 		} else {
