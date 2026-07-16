@@ -628,6 +628,9 @@ void module_show_mit_compliance(u16 value)
 		snprintf(description, SFF_MAX_DESC_LEN, "%s linear active equalizers",
 			 cc);
 		break;
+	default:
+		strncpy(description, "Reserved or unknown", SFF_MAX_DESC_LEN);
+		break;
 	}
 
 	sff_print_any_hex_field("Transmitter technology",
