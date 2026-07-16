@@ -562,12 +562,11 @@ static void sff8636_show_rate_identifier(const struct sff8636_memory_map *map)
 static void
 sff8636_show_wavelength_or_copper_compliance(const struct sff8636_memory_map *map)
 {
-	u16 value = map->page_00h[SFF8636_DEVICE_TECH_OFFSET] &
-			SFF8636_TRANS_TECH_MASK;
+	__u8 value = map->page_00h[SFF8636_DEVICE_TECH_OFFSET] >> 4;
 
 	module_show_mit_compliance(value);
 
-	if (value >= SFF8636_TRANS_COPPER_PAS_UNEQUAL) {
+	if (value >= MODULE_TT_COPPER_UNEQUAL) {
 		module_print_any_uint("Attenuation at 2.5GHz",
 				      map->page_00h[SFF8636_WAVELEN_HIGH_BYTE_OFFSET],
 				      "db");

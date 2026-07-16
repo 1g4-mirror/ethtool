@@ -254,11 +254,11 @@ static void cmis_show_sig_integrity(const struct cmis_memory_map *map)
  */
 static void cmis_show_mit_compliance(const struct cmis_memory_map *map)
 {
-	u16 value = map->page_00h[CMIS_MEDIA_INTF_TECH_OFFSET];
+	__u8 value = map->page_00h[CMIS_MEDIA_INTF_TECH_OFFSET];
 
 	module_show_mit_compliance(value);
 
-	if (value >= CMIS_COPPER_UNEQUAL) {
+	if (value >= MODULE_TT_COPPER_UNEQUAL) {
 		module_print_any_uint("Attenuation at 5GHz",
 				      map->page_00h[CMIS_COPPER_ATT_5GHZ], "db");
 		module_print_any_uint("Attenuation at 7GHz",
