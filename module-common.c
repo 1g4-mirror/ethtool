@@ -628,6 +628,24 @@ void module_show_mit_compliance(u16 value)
 		snprintf(description, SFF_MAX_DESC_LEN, "%s linear active equalizers",
 			 cc);
 		break;
+	case MODULE_TT_C_BAND_LASER:
+		strncpy(description, "C-band tunable laser", SFF_MAX_DESC_LEN);
+		break;
+	case MODULE_TT_L_BAND_LASER:
+		strncpy(description, "L-band tunable laser", SFF_MAX_DESC_LEN);
+		break;
+	case MODULE_TT_COPPER_NF_LINEAR:
+		snprintf(description, SFF_MAX_DESC_LEN,
+			 "%s near and far end linear active equalizers", cc);
+		break;
+	case MODULE_TT_COPPER_F_LINEAR:
+		snprintf(description, SFF_MAX_DESC_LEN,
+			 "%s far end linear active equalizers", cc);
+		break;
+	case MODULE_TT_COPPER_N_LINEAR:
+		snprintf(description, SFF_MAX_DESC_LEN,
+			 "%s near end linear active equalizers", cc);
+		break;
 	default:
 		strncpy(description, "Reserved or unknown", SFF_MAX_DESC_LEN);
 		break;
