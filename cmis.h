@@ -120,6 +120,7 @@
 #define CMIS_OM4_LEN_OFFSET			0x86
 #define CMIS_OM3_LEN_OFFSET			0x87
 #define CMIS_OM2_LEN_OFFSET			0x88
+#define CMIS_SMF_LEN_MUL2_OFFSET		0x89
 
 /* Wavelength (Page 1) */
 #define CMIS_NOM_WAVELENGTH_MSB			0x8A

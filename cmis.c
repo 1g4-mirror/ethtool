@@ -188,6 +188,7 @@ static void cmis_show_cbl_asm_len(const struct cmis_memory_map *map)
  */
 static void cmis_print_smf_cbl_len(const struct cmis_memory_map *map)
 {
+	static const float smf_mul2[] = { 50.0f, 100.0f, 200.0f, 500.0f };
 	static const char *fn = "Length (SMF)";
 	float mul = 1.0f;
 	float val = 0.0f;
@@ -203,7 +204,12 @@ static void cmis_print_smf_cbl_len(const struct cmis_memory_map *map)
 	case CMIS_MULTIPLIER_01:
 		mul = 1.0f;
 		break;
-	default:
+	case CMIS_MULTIPLIER_10:
+		mul = 10.0f;
+		break;
+	case CMIS_MULTIPLIER_11:
+		mul = smf_mul2[(map->page_01h[CMIS_SMF_LEN_MUL2_OFFSET] &
+				CMIS_LEN_MUL_MASK) >> 6];
 		break;
 	}
 
