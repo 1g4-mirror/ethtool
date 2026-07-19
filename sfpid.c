@@ -396,7 +396,6 @@ static void sff8079_show_wavelength_or_copper_compliance(const __u8 *id)
 static void sff8079_show_options(const __u8 *id)
 {
 	static const char *pfx = "Option";
-	char value[64] = "";
 
 	if (is_json_context()) {
 		open_json_array("option_values", "");
@@ -407,35 +406,39 @@ static void sff8079_show_options(const __u8 *id)
 		printf("\t%-41s : 0x%02x 0x%02x\n", "Option values", id[64],
 		       id[65]);
 	}
-	if (id[65] & (1 << 1))
-		sprintf(value, "%s", "RX_LOS implemented");
-	if (id[65] & (1 << 2))
-		sprintf(value, "%s", "RX_LOS implemented, inverted");
-	if (id[65] & (1 << 3))
-		sprintf(value, "%s", "TX_FAULT implemented");
-	if (id[65] & (1 << 4))
-		sprintf(value, "%s", "TX_DISABLE implemented");
-	if (id[65] & (1 << 5))
-		sprintf(value, "%s", "RATE_SELECT implemented");
-	if (id[65] & (1 << 6))
-		sprintf(value, "%s", "Tunable transmitter technology");
-	if (id[65] & (1 << 7))
-		sprintf(value, "%s", "Receiver decision threshold implemented");
-	if (id[64] & (1 << 0))
-		sprintf(value, "%s", "Linear receiver output implemented");
-	if (id[64] & (1 << 1))
-		sprintf(value, "%s", "Power level 2 requirement");
-	if (id[64] & (1 << 2))
-		sprintf(value, "%s", "Cooled transceiver implemented");
-	if (id[64] & (1 << 3))
-		sprintf(value, "%s", "Retimer or CDR implemented");
-	if (id[64] & (1 << 4))
-		sprintf(value, "%s", "Paging implemented");
-	if (id[64] & (1 << 5))
-		sprintf(value, "%s", "Power level 3 requirement");
 
-	if (value[0] != '\0')
-		module_print_any_string(pfx, value);
+	if (is_json_context())
+		open_json_array("option", "");
+
+	if (id[65] & (1 << 1))
+		module_print_any_array_string_entry(pfx, "RX_LOS implemented");
+	if (id[65] & (1 << 2))
+		module_print_any_array_string_entry(pfx, "RX_LOS implemented, inverted");
+	if (id[65] & (1 << 3))
+		module_print_any_array_string_entry(pfx, "TX_FAULT implemented");
+	if (id[65] & (1 << 4))
+		module_print_any_array_string_entry(pfx, "TX_DISABLE implemented");
+	if (id[65] & (1 << 5))
+		module_print_any_array_string_entry(pfx, "RATE_SELECT implemented");
+	if (id[65] & (1 << 6))
+		module_print_any_array_string_entry(pfx, "Tunable transmitter technology");
+	if (id[65] & (1 << 7))
+		module_print_any_array_string_entry(pfx, "Receiver decision threshold implemented");
+	if (id[64] & (1 << 0))
+		module_print_any_array_string_entry(pfx, "Linear receiver output implemented");
+	if (id[64] & (1 << 1))
+		module_print_any_array_string_entry(pfx, "Power level 2 requirement");
+	if (id[64] & (1 << 2))
+		module_print_any_array_string_entry(pfx, "Cooled transceiver implemented");
+	if (id[64] & (1 << 3))
+		module_print_any_array_string_entry(pfx, "Retimer or CDR implemented");
+	if (id[64] & (1 << 4))
+		module_print_any_array_string_entry(pfx, "Paging implemented");
+	if (id[64] & (1 << 5))
+		module_print_any_array_string_entry(pfx, "Power level 3 requirement");
+
+	if (is_json_context())
+		close_json_array("");
 }
 
 static void sff8079_show_all_common(const __u8 *id)

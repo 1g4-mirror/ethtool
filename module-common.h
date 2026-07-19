@@ -266,6 +266,7 @@ void module_print_any_string(const char *fn, const char *value);
 void module_print_any_float(const char *fn, float value, const char *unit);
 void module_print_any_bool(const char *fn, char *given_json_fn, bool value,
 			   const char *str_value);
+void module_print_any_array_string_entry(const char *fn, const char *value);
 void module_show_value_with_unit(const __u8 *id, unsigned int reg,
 				 const char *name, unsigned int mult,
 				 const char *unit);
