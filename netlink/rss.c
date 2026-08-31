@@ -149,10 +149,6 @@ int rss_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 	hash_funcs = global_stringset(ETH_SS_RSS_HASH_FUNCS,
 				      nlctx->ethnl2_socket);
 
-	ret = mnl_attr_parse(nlhdr, GENL_HDRLEN, attr_cb, &tb_info);
-	if (ret < 0)
-		return silent ? MNL_CB_OK : MNL_CB_ERROR;
-
 	ret = get_num_rings(args);
 	if (ret < 0)
 		return MNL_CB_ERROR;
