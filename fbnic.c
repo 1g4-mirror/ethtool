@@ -5598,8 +5598,7 @@ static int fbnic_dump_fb_nic_intr_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
-	for (csr_offset = csr_start_addr; csr_offset < csr_end_addr;
+	for (csr_offset = csr_start_addr; csr_offset <= csr_end_addr;
 		csr_offset += k) {
 		k = 1;
 		reg_val = *regs_buff;
@@ -5728,9 +5727,8 @@ static int fbnic_dump_fb_nic_intr_msix(uint32_t **regs_buffp,
 	 * from a different register array at the same index.
 	 * Every 4th register belongs to one register array
 	 */
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		i = csr_offset - *section_start;
 		reg_val = *regs_buff;
@@ -5818,9 +5816,8 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-		csr_offset < csr_end_addr; csr_offset++) {
+		csr_offset <= csr_end_addr; csr_offset++) {
 		reg_val = *regs_buff;
 		switch (csr_offset) {
 		case REGISTER_RANGE(FBNIC_QM_TWQ_IDLE):
@@ -6301,9 +6298,8 @@ static int fbnic_dump_fb_nic_qm_rx_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-		csr_offset < csr_end_addr; csr_offset++) {
+		csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
@@ -6750,9 +6746,8 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
@@ -7450,9 +7445,8 @@ static int fbnic_dump_fb_nic_tce_ram(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
