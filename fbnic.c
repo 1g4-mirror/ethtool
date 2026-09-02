@@ -5944,7 +5944,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TQS_MTU_STS_0:
 			fprintf(stdout,
-				"FBNIC_QM_TQS_MTU_STS_0: 0x%08x\n",
+				"FBNIC_QM_TQS_GLOBAL_STS0: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TQS_STS0_TXB_MC_FIFO_CRDTS_USED;
 			bf_val = FIELD_GET(m, reg_val);
@@ -5953,7 +5953,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TQS_MTU_STS_1:
 			fprintf(stdout,
-				"FBNIC_QM_TQS_MTU_STS_1: 0x%08x\n",
+				"FBNIC_QM_TQS_GLOBAL_STS1: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TQS_STS1_TXB_BMC_FIFO_CRDTS_USED;
 			bf_val = FIELD_GET(m, reg_val);
@@ -6188,7 +6188,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TNI_TCM_STS:
 			fprintf(stdout,
-				"FBNIC_QM_TNI_TCM_STS: 0x%02x\n",
+				"FBNIC_QM_TNI_STS: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TNI_TCM_STS_TDF_NOCIF_IDLE;
 			bf_val = FIELD_GET(m, reg_val);
@@ -6670,7 +6670,7 @@ static int fbnic_dump_fb_nic_qm_rx_global(uint32_t **regs_buffp,
 			m = FBNIC_QM_RNI_STS_RCM_IDLE_DP;
 			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
-				"  [02:02] RCM_NOCIF_IDLE_DP: 0x%02x\n",
+				"  [05:05] RCM_NOCIF_IDLE_DP: 0x%02x\n",
 				bf_val);
 		break;
 		case FBNIC_QM_RNI_ERR_INTR_STS:
@@ -7194,7 +7194,7 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 				i, reg_val);
 			m = FBNIC_TCE_TXB_DATA_Q_LVL_VALUE;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [12:00] FIFO_LEVEL: 0x%05x\n",
+			fprintf(stdout, "  [11:00] FIFO_LEVEL: 0x%05x\n",
 				bf_val);
 		break;
 		case FBNIC_TCE_TXB_INGR_Q_LVL:
@@ -7578,11 +7578,11 @@ static int fbnic_dump_fb_nic_tce_ram(uint32_t **regs_buffp,
 				bf_val);
 			m = FBNIC_TCE_RAM_TCAM3_MCQ_MASK;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [06:06] MCQ MASK: 0x%02x\n",
+			fprintf(stdout, "  [07:07] MCQ MASK: 0x%02x\n",
 				bf_val);
 			m = FBNIC_TCE_RAM_TCAM3_VALIDATE;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [31:31] MCQ MASK: 0x%02x\n",
+			fprintf(stdout, "  [31:31] VALIDATE: 0x%02x\n",
 				bf_val);
 		break;
 		default:
