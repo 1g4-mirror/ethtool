@@ -5050,10 +5050,17 @@ static int do_getmodule(struct cmd_context *ctx)
 		return 1;
 	}
 
+	if (geeprom_offset >= modinfo.eeprom_len) {
+		fprintf(stderr,
+			"Invalid offset %u: module EEPROM is %u bytes\n",
+			geeprom_offset, modinfo.eeprom_len);
+		return 1;
+	}
+
 	if (!geeprom_length_seen)
 		geeprom_length = modinfo.eeprom_len;
 
-	if (modinfo.eeprom_len < geeprom_offset + geeprom_length)
+	if (geeprom_length > modinfo.eeprom_len - geeprom_offset)
 		geeprom_length = modinfo.eeprom_len - geeprom_offset;
 
 	eeprom = calloc(1, sizeof(*eeprom)+geeprom_length);

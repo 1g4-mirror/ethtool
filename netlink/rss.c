@@ -24,10 +24,14 @@ struct cb_args {
 
 void dump_json_rss_info(struct cmd_context *ctx, u32 *indir_table,
 			u32 indir_size, u8 *hkey, u32 hkey_size,
-			const struct stringset *hash_funcs, u8 hfunc,
+			const struct stringset *hash_funcs, u32 hfunc,
 			u32 input_xfrm)
 {
+	unsigned int hfunc_count = get_count(hash_funcs);
 	unsigned int i;
+
+	if (hfunc_count > sizeof(hfunc) * BITS_PER_BYTE)
+		hfunc_count = sizeof(hfunc) * BITS_PER_BYTE;
 
 	open_json_object(NULL);
 	print_string(PRINT_JSON, "ifname", NULL, ctx->devname);
@@ -46,15 +50,15 @@ void dump_json_rss_info(struct cmd_context *ctx, u32 *indir_table,
 	}
 
 	if (hfunc) {
-		for (i = 0; i < get_count(hash_funcs); i++) {
-			if (hfunc & (1 << i)) {
+		for (i = 0; i < hfunc_count; i++) {
+			if (hfunc & (1U << i)) {
 				print_string(PRINT_JSON, "rss-hash-function",
 					     NULL, get_string(hash_funcs, i));
 				break;
 			}
 		}
 
-		if (i == get_count(hash_funcs))
+		if (i == hfunc_count)
 			print_uint(PRINT_JSON, "rss-hash-function-raw", NULL, hfunc);
 	}
 
@@ -148,10 +152,6 @@ int rss_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 	hash_funcs = global_stringset(ETH_SS_RSS_HASH_FUNCS,
 				      nlctx->ethnl2_socket);
 
-	ret = mnl_attr_parse(nlhdr, GENL_HDRLEN, attr_cb, &tb_info);
-	if (ret < 0)
-		return silent ? MNL_CB_OK : MNL_CB_ERROR;
-
 	ret = get_num_rings(args);
 	if (ret < 0)
 		return MNL_CB_ERROR;
@@ -162,6 +162,8 @@ int rss_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 				   hkey, hkey_bytes, hash_funcs, rss_hfunc,
 				   input_xfrm);
 	} else {
+		unsigned int hfunc_count = get_count(hash_funcs);
+
 		print_indir_table(nlctx->ctx, args->num_rings,
 				  indir_size, (u32 *)indir_table);
 		print_rss_hkey(hkey, hkey_bytes);
@@ -170,10 +172,16 @@ int rss_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 			printf("    Operation not supported\n");
 			return 0;
 		}
-		for (unsigned int i = 0; i < get_count(hash_funcs); i++) {
+		/* rss_hfunc is a 32-bit mask; if the kernel reports more
+		 * hash function names than that, cap the loop to avoid
+		 * out-of-range shifts.
+		 */
+		if (hfunc_count > sizeof(rss_hfunc) * BITS_PER_BYTE)
+			hfunc_count = sizeof(rss_hfunc) * BITS_PER_BYTE;
+		for (unsigned int i = 0; i < hfunc_count; i++) {
 			printf("    %s: %s\n", get_string(hash_funcs, i),
-			       (rss_hfunc & (1 << i)) ? "on" : "off");
-			rss_hfunc &= ~(1 << i);
+			       (rss_hfunc & (1U << i)) ? "on" : "off");
+			rss_hfunc &= ~(1U << i);
 		}
 		if (rss_hfunc)
 			printf("    Unknown hash function: 0x%x\n", rss_hfunc);

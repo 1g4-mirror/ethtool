@@ -133,6 +133,7 @@ static int get_eeprom_page_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 	struct ethtool_module_eeprom *request = data;
 	DECLARE_ATTR_TB_INFO(tb);
 	u8 *eeprom_data;
+	u32 data_len;
 	int ret;
 
 	ret = mnl_attr_parse(nlhdr, GENL_HDRLEN, attr_cb, &tb_info);
@@ -141,6 +142,13 @@ static int get_eeprom_page_reply_cb(const struct nlmsghdr *nlhdr, void *data)
 
 	if (!tb[ETHTOOL_A_MODULE_EEPROM_DATA])
 		return MNL_CB_ERROR;
+
+	/* The kernel may return fewer bytes than requested; never read
+	 * beyond the data actually present in the attribute.
+	 */
+	data_len = mnl_attr_get_payload_len(tb[ETHTOOL_A_MODULE_EEPROM_DATA]);
+	if (data_len < request->length)
+		request->length = data_len;
 
 	eeprom_data = mnl_attr_get_payload(tb[ETHTOOL_A_MODULE_EEPROM_DATA]);
 	request->data = malloc(request->length);

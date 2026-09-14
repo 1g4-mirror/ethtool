@@ -338,14 +338,25 @@
 #define FBNIC_TCE_TXB_BYTES_DEST_H(n)	(0x0402d + (n))	/* 0x100b4 + 4*n */
 #define FBNIC_TCE_TXB_BYTES_DEST_H_CNT		4
 #define FBNIC_TCE_INTR_STS		0x04031		/* 0x100c4 */
-#define FBNIC_TCE_INTR_STS_TBI_SOP_OVFL		CSR_BIT(26)
-#define FBNIC_TCE_INTR_STS_TTI_FRM_SOP_OVFL	CSR_BIT(25)
-#define FBNIC_TCE_INTR_STS_TTI_CM_SOP_OVFL	CSR_BIT(24)
-#define FBNIC_TCE_INTR_STS_TBI_QUIESCENCE	CSR_BIT(17)
-#define FBNIC_TCE_INTR_STS_TTI_QUIESCENCE	CSR_BIT(16)
+#define FBNIC_TCE_INTR_STS_TXB_CTRL_FIFO_ECC_MBE	CSR_BIT(31)
+#define FBNIC_TCE_INTR_STS_TXB_CTRL_FIFO_ECC_SBE	CSR_BIT(30)
+#define FBNIC_TCE_INTR_STS_TXB_DATA_FIFO_ECC_MBE	CSR_BIT(29)
+#define FBNIC_TCE_INTR_STS_TXB_DATA_FIFO_ECC_SBE	CSR_BIT(28)
+#define FBNIC_TCE_INTR_STS_TBI_QUIESCENCE	CSR_BIT(25)
+#define FBNIC_TCE_INTR_STS_TTI_QUIESCENCE	CSR_BIT(24)
+#define FBNIC_TCE_INTR_STS_TXB_ILLEGAL_PTP	CSR_BIT(21)
+#define FBNIC_TCE_INTR_STS_DATA_RX_BMC_UFLOW	CSR_BIT(20)
+#define FBNIC_TCE_INTR_STS_DATA_MC_UFLOW		CSR_BIT(18)
+#define FBNIC_TCE_INTR_STS_DATA_TX_BMC_UFLOW	CSR_BIT(16)
+#define FBNIC_TCE_INTR_STS_TBI_SOP_OVFL		CSR_BIT(13)
+#define FBNIC_TCE_INTR_STS_TTI_FRM_SOP_OVFL	CSR_BIT(12)
+#define FBNIC_TCE_INTR_STS_TTI_CM_SOP_OVFL	CSR_BIT(11)
 #define FBNIC_TCE_INTR_STS_BMC_ELSTC_OVFL	CSR_BIT(10)
 #define FBNIC_TCE_INTR_STS_TEI_ELSTC_OVFL	CSR_BIT(9)
 #define FBNIC_TCE_INTR_STS_TDE_ELSTC_OVFL	CSR_BIT(8)
+#define FBNIC_TCE_INTR_STS_CTRL_RX_BMC_OVFL	CSR_BIT(7)
+#define FBNIC_TCE_INTR_STS_CTRL_MC_OVFL		CSR_BIT(6)
+#define FBNIC_TCE_INTR_STS_CTRL_TX_BMC_OVFL	CSR_BIT(5)
 #define FBNIC_TCE_INTR_STS_DATA_RX_BMC_OVFL	CSR_BIT(4)
 #define FBNIC_TCE_INTR_STS_DATA_RX_TEI_OVFL	CSR_BIT(3)
 #define FBNIC_TCE_INTR_STS_DATA_MC_OVFL		CSR_BIT(2)
@@ -355,7 +366,7 @@
 #define FBNIC_TCE_INTR_SET		0x04033		/* 0x100cc */
 #define FBNIC_TCE_TXB_DATA_Q_LVL(n)	(0x04034 + (n))	/* 0x100d0 + 4*n */
 #define FBNIC_TCE_TXB_DATA_Q_LVL_CNT		5
-#define FBNIC_TCE_TXB_DATA_Q_LVL_VALUE		CSR_GENMASK(12, 0)
+#define FBNIC_TCE_TXB_DATA_Q_LVL_VALUE		CSR_GENMASK(11, 0)
 #define FBNIC_TCE_TXB_INGR_Q_LVL	0x04039		/* 0x100e4 */
 #define FBNIC_TCE_TXB_INGR_TXB_BMC_ELASTIC	CSR_GENMASK(23, 16)
 #define FBNIC_TCE_TXB_INGR_TXB_TEI_ELASTIC	CSR_GENMASK(15, 8)
@@ -962,15 +973,15 @@
 #define FBNIC_QM_TNI_TCM_CTL_CLS			CSR_GENMASK(3, 2)
 #define FBNIC_QM_TNI_TCM_CTL_MPS			CSR_GENMASK(1, 0)
 
-#define FBNIC_QM_TNI_TCM_STS_TCM_NOCIF_IDLE_DP		CSR_BIT(2)
-#define FBNIC_QM_TNI_TCM_STS_TDE_NOCIF_IDLE_DP		CSR_BIT(1)
-#define FBNIC_QM_TNI_TCM_STS_TDF_NOCIF_IDLE_DP		CSR_BIT(0)
+#define FBNIC_QM_TNI_TCM_STS_TCM_NOCIF_IDLE_DP		CSR_BIT(5)
+#define FBNIC_QM_TNI_TCM_STS_TDE_NOCIF_IDLE_DP		CSR_BIT(4)
+#define FBNIC_QM_TNI_TCM_STS_TDF_NOCIF_IDLE_DP		CSR_BIT(3)
 #define FBNIC_QM_TNI_TCM_STS_TCM_NOCIF_IDLE		CSR_BIT(2)
 #define FBNIC_QM_TNI_TCM_STS_TDE_NOCIF_IDLE		CSR_BIT(1)
 #define FBNIC_QM_TNI_TCM_STS_TDF_NOCIF_IDLE		CSR_BIT(0)
 
-#define FBNIC_QM_TNI_ERR_INTR_STS_TQS_FIFO1_UFLOW	CSR_BIT(3)
-#define FBNIC_QM_TNI_ERR_INTR_STS_TQS_FIFO0_UFLOW	CSR_BIT(2)
+#define FBNIC_QM_TNI_ERR_INTR_STS_TQS_FIFO1_UFLOW	CSR_BIT(5)
+#define FBNIC_QM_TNI_ERR_INTR_STS_TQS_FIFO0_UFLOW	CSR_BIT(4)
 #define FBNIC_QM_TNI_ERR_INTR_STS_TDE_ROB_DBE		CSR_BIT(3)
 #define FBNIC_QM_TNI_ERR_INTR_STS_TDE_ROB_SBE		CSR_BIT(2)
 #define FBNIC_QM_TNI_ERR_INTR_STS_TDF_ROB_DBE		CSR_BIT(1)
@@ -5598,8 +5609,7 @@ static int fbnic_dump_fb_nic_intr_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
-	for (csr_offset = csr_start_addr; csr_offset < csr_end_addr;
+	for (csr_offset = csr_start_addr; csr_offset <= csr_end_addr;
 		csr_offset += k) {
 		k = 1;
 		reg_val = *regs_buff;
@@ -5728,9 +5738,8 @@ static int fbnic_dump_fb_nic_intr_msix(uint32_t **regs_buffp,
 	 * from a different register array at the same index.
 	 * Every 4th register belongs to one register array
 	 */
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		i = csr_offset - *section_start;
 		reg_val = *regs_buff;
@@ -5818,9 +5827,8 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-		csr_offset < csr_end_addr; csr_offset++) {
+		csr_offset <= csr_end_addr; csr_offset++) {
 		reg_val = *regs_buff;
 		switch (csr_offset) {
 		case REGISTER_RANGE(FBNIC_QM_TWQ_IDLE):
@@ -5936,7 +5944,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TQS_MTU_STS_0:
 			fprintf(stdout,
-				"FBNIC_QM_TQS_MTU_STS_0: 0x%08x\n",
+				"FBNIC_QM_TQS_GLOBAL_STS0: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TQS_STS0_TXB_MC_FIFO_CRDTS_USED;
 			bf_val = FIELD_GET(m, reg_val);
@@ -5945,7 +5953,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TQS_MTU_STS_1:
 			fprintf(stdout,
-				"FBNIC_QM_TQS_MTU_STS_1: 0x%08x\n",
+				"FBNIC_QM_TQS_GLOBAL_STS1: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TQS_STS1_TXB_BMC_FIFO_CRDTS_USED;
 			bf_val = FIELD_GET(m, reg_val);
@@ -6180,7 +6188,7 @@ static int fbnic_dump_fb_nic_qm_tx_global(uint32_t **regs_buffp,
 		break;
 		case FBNIC_QM_TNI_TCM_STS:
 			fprintf(stdout,
-				"FBNIC_QM_TNI_TCM_STS: 0x%02x\n",
+				"FBNIC_QM_TNI_STS: 0x%08x\n",
 				reg_val);
 			m = FBNIC_QM_TNI_TCM_STS_TDF_NOCIF_IDLE;
 			bf_val = FIELD_GET(m, reg_val);
@@ -6301,9 +6309,8 @@ static int fbnic_dump_fb_nic_qm_rx_global(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-		csr_offset < csr_end_addr; csr_offset++) {
+		csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
@@ -6663,7 +6670,7 @@ static int fbnic_dump_fb_nic_qm_rx_global(uint32_t **regs_buffp,
 			m = FBNIC_QM_RNI_STS_RCM_IDLE_DP;
 			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
-				"  [02:02] RCM_NOCIF_IDLE_DP: 0x%02x\n",
+				"  [05:05] RCM_NOCIF_IDLE_DP: 0x%02x\n",
 				bf_val);
 		break;
 		case FBNIC_QM_RNI_ERR_INTR_STS:
@@ -6676,6 +6683,7 @@ static int fbnic_dump_fb_nic_qm_rx_global(uint32_t **regs_buffp,
 				"  [0:0] RBP_SINGLE_BIT: 0x%02x\n",
 				bf_val);
 			m = FBNIC_QM_RNI_ERR_INTR_STS_RBP_DBE;
+			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
 				"  [01:01] RBP_DOUBLE_BIT: 0x%02x\n",
 				bf_val);
@@ -6750,9 +6758,8 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
@@ -7048,6 +7055,71 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 			fprintf(stdout,
 				"FBNIC_TCE_INTR_STS: 0x%08x\n",
 				reg_val);
+			m = FBNIC_TCE_INTR_STS_TXB_CTRL_FIFO_ECC_MBE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [31:31] TXB_CTRL_FIFO_ECC_MBE: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TXB_CTRL_FIFO_ECC_SBE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [30:30] TXB_CTRL_FIFO_ECC_SBE: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TXB_DATA_FIFO_ECC_MBE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [29:29] TXB_DATA_FIFO_ECC_MBE: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TXB_DATA_FIFO_ECC_SBE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [28:28] TXB_DATA_FIFO_ECC_SBE: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TBI_QUIESCENCE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [25:25] TBI_QUIESCENCE_DET: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TTI_QUIESCENCE;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [24:24] TTI_QUIESCENCE_DET: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TXB_ILLEGAL_PTP;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [21:21] TXB_ILLEGAL_PTP: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_DATA_RX_BMC_UFLOW;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [20:20] TXB_DATA_FIFO_RX_BMC_UFLOW: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_DATA_MC_UFLOW;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [18:18] TXB_DATA_FIFO_MC_UFLOW: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_DATA_TX_BMC_UFLOW;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [16:16] TXB_DATA_FIFO_TX_BMC_UFLOW: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TBI_SOP_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [13:13] TBI_SOP_FIFO_OVFL: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TTI_FRM_SOP_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [12:12] TTI_FRAME_SOP_FIFO_OVFL: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_TTI_CM_SOP_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [11:11] TTI_CM_SOP_FIFO_OVFL: 0x%02x\n",
+				bf_val);
 			m = FBNIC_TCE_INTR_STS_DATA_TX_TEI_OVFL0;
 			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
@@ -7073,6 +7145,21 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 			fprintf(stdout,
 				"  [04:04] TXB_DATA_FIFO_RX_BMC_OVFL: 0x%02x\n",
 				bf_val);
+			m = FBNIC_TCE_INTR_STS_CTRL_TX_BMC_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [05:05] TXB_CTRL_FIFO_TX_BMC_OVFL: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_CTRL_MC_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [06:06] TXB_CTRL_FIFO_MC_OVFL: 0x%02x\n",
+				bf_val);
+			m = FBNIC_TCE_INTR_STS_CTRL_RX_BMC_OVFL;
+			bf_val = FIELD_GET(m, reg_val);
+			fprintf(stdout,
+				"  [07:07] TXB_CTRL_FIFO_RX_BMC_OVFL: 0x%02x\n",
+				bf_val);
 			m = FBNIC_TCE_INTR_STS_TDE_ELSTC_OVFL;
 			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
@@ -7087,31 +7174,6 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 			bf_val = FIELD_GET(m, reg_val);
 			fprintf(stdout,
 				"  [10:10] TXB_INTR_FIFO_BMC_OVFL: 0x%02x\n",
-				bf_val);
-			m = FBNIC_TCE_INTR_STS_TTI_QUIESCENCE;
-			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout,
-				"  [16:16] TTI_QUIESCENCE_DET: 0x%02x\n",
-				bf_val);
-			m = FBNIC_TCE_INTR_STS_TBI_QUIESCENCE;
-			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout,
-				"  [17:17] TBI_QUIESCENCE_DET: 0x%02x\n",
-				bf_val);
-			m = FBNIC_TCE_INTR_STS_TTI_CM_SOP_OVFL;
-			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout,
-				"  [24:24] TTI_CM_SOP_FIFO_OVFL: 0x%02x\n",
-				bf_val);
-			m = FBNIC_TCE_INTR_STS_TTI_FRM_SOP_OVFL;
-			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout,
-				"  [25:25] TTI_FRAME_SOP_FIFO_OVFL: 0x%02x\n",
-				bf_val);
-			m = FBNIC_TCE_INTR_STS_TBI_SOP_OVFL;
-			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout,
-				"  [26:26] TBI_SOP_FIFO_OVFL: 0x%02x\n",
 				bf_val);
 		break;
 		case FBNIC_TCE_INTR_MASK:
@@ -7132,7 +7194,7 @@ static int fbnic_dump_fb_nic_tce(uint32_t **regs_buffp,
 				i, reg_val);
 			m = FBNIC_TCE_TXB_DATA_Q_LVL_VALUE;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [12:00] FIFO_LEVEL: 0x%05x\n",
+			fprintf(stdout, "  [11:00] FIFO_LEVEL: 0x%05x\n",
 				bf_val);
 		break;
 		case FBNIC_TCE_TXB_INGR_Q_LVL:
@@ -7450,9 +7512,8 @@ static int fbnic_dump_fb_nic_tce_ram(uint32_t **regs_buffp,
 		return -1;
 	}
 
-	regs_buff++;
 	for (csr_offset = csr_start_addr;
-	     csr_offset < csr_end_addr; csr_offset++) {
+	     csr_offset <= csr_end_addr; csr_offset++) {
 
 		reg_val = *regs_buff;
 		switch (csr_offset) {
@@ -7517,11 +7578,11 @@ static int fbnic_dump_fb_nic_tce_ram(uint32_t **regs_buffp,
 				bf_val);
 			m = FBNIC_TCE_RAM_TCAM3_MCQ_MASK;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [06:06] MCQ MASK: 0x%02x\n",
+			fprintf(stdout, "  [07:07] MCQ MASK: 0x%02x\n",
 				bf_val);
 			m = FBNIC_TCE_RAM_TCAM3_VALIDATE;
 			bf_val = FIELD_GET(m, reg_val);
-			fprintf(stdout, "  [31:31] MCQ MASK: 0x%02x\n",
+			fprintf(stdout, "  [31:31] VALIDATE: 0x%02x\n",
 				bf_val);
 		break;
 		default:

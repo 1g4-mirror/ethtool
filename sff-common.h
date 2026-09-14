@@ -126,7 +126,7 @@
 
 /* Channel Monitoring Fields */
 struct sff_channel_diags {
-	__u16 bias_cur;      /* Measured bias current in 2uA units */
+	__u32 bias_cur;      /* Measured bias current in 2uA units */
 	__u16 rx_power;      /* Measured RX Power */
 	__u16 tx_power;      /* Measured TX Power */
 };
@@ -157,7 +157,7 @@ struct sff_diags {
 	/* SFP Temp in 16-bit signed 1/256 Celcius */
 	__s16 sfp_temp[5];
 	/* Measured bias current in 2uA units */
-	__u16 bias_cur[5];
+	__u32 bias_cur[5];
 	/* Measured TX Power */
 	__u16 tx_power[5];
 	/* Measured RX Power */

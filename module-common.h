@@ -83,42 +83,27 @@ enum module_type {
 #define  MODULE_CTOR_VENDOR_LAST		0xFF
 
 /* Transmitter Technology */
-#define MODULE_850_VCSEL			0x00
-
-/* SFF8636 */
-#define	 SFF8636_TRANS_TECH_MASK		0xF0
-#define	 SFF8636_TRANS_COPPER_LNR_EQUAL		(15 << 4)
-#define	 SFF8636_TRANS_COPPER_NEAR_EQUAL	(14 << 4)
-#define	 SFF8636_TRANS_COPPER_FAR_EQUAL		(13 << 4)
-#define	 SFF8636_TRANS_COPPER_LNR_FAR_EQUAL	(12 << 4)
-#define	 SFF8636_TRANS_COPPER_PAS_EQUAL		(11 << 4)
-#define	 SFF8636_TRANS_COPPER_PAS_UNEQUAL	(10 << 4)
-#define	 SFF8636_TRANS_1490_DFB			(9 << 4)
-#define	 SFF8636_TRANS_OTHERS			(8 << 4)
-#define	 SFF8636_TRANS_1550_EML			(7 << 4)
-#define	 SFF8636_TRANS_1310_EML			(6 << 4)
-#define  SFF8636_TRANS_1550_DFB			(5 << 4)
-#define	 SFF8636_TRANS_1310_DFB			(4 << 4)
-#define	 SFF8636_TRANS_1310_FP			(3 << 4)
-#define	 SFF8636_TRANS_1550_VCSEL		(2 << 4)
-#define	 SFF8636_TRANS_1310_VCSEL		(1 << 4)
-
-/* CMIS */
-#define CMIS_1310_VCSEL				0x01
-#define CMIS_1550_VCSEL				0x02
-#define CMIS_1310_FP				0x03
-#define CMIS_1310_DFB				0x04
-#define CMIS_1550_DFB				0x05
-#define CMIS_1310_EML				0x06
-#define CMIS_1550_EML				0x07
-#define CMIS_OTHERS				0x08
-#define CMIS_1490_DFB				0x09
-#define CMIS_COPPER_UNEQUAL			0x0A
-#define CMIS_COPPER_PASS_EQUAL			0x0B
-#define CMIS_COPPER_NF_EQUAL			0x0C
-#define CMIS_COPPER_F_EQUAL			0x0D
-#define CMIS_COPPER_N_EQUAL			0x0E
-#define CMIS_COPPER_LINEAR_EQUAL		0x0F
+#define MODULE_TT_850_VCSEL			0x00
+#define MODULE_TT_1310_VCSEL			0x01
+#define MODULE_TT_1550_VCSEL			0x02
+#define MODULE_TT_1310_FP			0x03
+#define MODULE_TT_1310_DFB			0x04
+#define MODULE_TT_1550_DFB			0x05
+#define MODULE_TT_1310_EML			0x06
+#define MODULE_TT_1550_EML			0x07
+#define MODULE_TT_OTHERS			0x08
+#define MODULE_TT_1490_DFB			0x09
+#define MODULE_TT_COPPER_UNEQUAL		0x0A
+#define MODULE_TT_COPPER_PASS_EQUAL		0x0B
+#define MODULE_TT_COPPER_NF_EQUAL		0x0C
+#define MODULE_TT_COPPER_F_EQUAL		0x0D
+#define MODULE_TT_COPPER_N_EQUAL		0x0E
+#define MODULE_TT_COPPER_LINEAR_EQUAL		0x0F
+#define MODULE_TT_C_BAND_LASER			0x10
+#define MODULE_TT_L_BAND_LASER			0x11
+#define MODULE_TT_COPPER_NF_LINEAR		0x12
+#define MODULE_TT_COPPER_F_LINEAR		0x13
+#define MODULE_TT_COPPER_N_LINEAR		0x14
 
 /* Module Flags (Page 0) */
 #define CMIS_VCC_AW_OFFSET			0x09
@@ -281,6 +266,7 @@ void module_print_any_string(const char *fn, const char *value);
 void module_print_any_float(const char *fn, float value, const char *unit);
 void module_print_any_bool(const char *fn, char *given_json_fn, bool value,
 			   const char *str_value);
+void module_print_any_array_string_entry(const char *fn, const char *value);
 void module_show_value_with_unit(const __u8 *id, unsigned int reg,
 				 const char *name, unsigned int mult,
 				 const char *unit);
